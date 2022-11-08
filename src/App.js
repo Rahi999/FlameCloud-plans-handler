@@ -1,14 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Input } from '@mui/material';
+import { Box } from '@mui/material';
+import ActionPlans from './Components/ActionPlans';
 
 function App() {
   return (
-    <div className="App">
-     FlameCloud
-        <Input />
-    </div>
+    <Box >
+       <ActionPlans />
+    </Box>
   );
 }
 

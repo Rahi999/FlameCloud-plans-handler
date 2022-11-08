@@ -1,8 +1,239 @@
-import React from 'react'
+import React,{useState} from 'react'
+import {Box,Typography,Modal,Button,TextField,Avatar} from "@mui/material";
+import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
+import AddBoxRoundedIcon from '@mui/icons-material/AddBoxRounded';
+import Checkbox from '@mui/material/Checkbox';
+import Autocomplete from '@mui/material/Autocomplete';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import Plans from './Plans';
 
 const ActionPlans = () => {
+
+    const [open, setOpen] = React.useState(false);
+    const [open1, setOpen1] = React.useState(false);
+    const [open2, setOpen2] = React.useState(false);
+
+    const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+    const checkedIcon = <CheckBoxIcon fontSize="small" />;
+    const handleOpen = () => {
+     setOpen(true);
+    };
+    const handleOpen1 = () => {
+        setOpen1(true);
+       };
+       const handleOpen2 = () => {
+        setOpen2(true);
+       };
+    const handleClose = () => {
+     setOpen(false);
+   };
+   const handleClose1 = () => {
+    setOpen1(false);
+  };
+  const handleClose2 = () => {
+    setOpen2(false);
+  };
+   const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+  };
+
+  const top100Films = [
+    { name: 'Aryan talwar', img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiojqfxTt5goerxFtlvh1oPpbQRngoARtEFktExOlq&s" },
+    { name: 'Karan', img : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiojqfxTt5goerxFtlvh1oPpbQRngoARtEFktExOlq&s' },
+    { name: 'Kishan', img : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiojqfxTt5goerxFtlvh1oPpbQRngoARtEFktExOlq&s"},
+    { name: 'Rishi', img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiojqfxTt5goerxFtlvh1oPpbQRngoARtEFktExOlq&s" },
+   
+  ]
   return (
-    <div>ActionPlans</div>
+    <>
+    <Box style={{width:"80%",margin:"auto"}}>
+        <Typography>SOP</Typography>
+       <Box style={{display:"flex",border: "1px solid"}}>
+       <Typography style={{
+        fontSize: "44px",
+        width: "300px",
+        left: "120px",
+        top: "144px",
+        border:"1px solid",
+        borderRadis: "nullpx"
+        
+       }}>Actions Plans</Typography>
+       <Box style={{textAlign : "right",border:"1px solid",width:"800px",justifyContent: "space-around"}}>
+       
+       {/* First Modal */}
+       <Button onClick={handleOpen} variant="outlined"><GroupRoundedIcon /> Manage Access</Button>
+       {" "}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <Box sx={{ ...style, width: 400 }}>
+          <h2 id="parent-modal-title">SOP Access</h2>
+          <p id="parent-modal-description">
+            Sales
+           </p>
+           <Autocomplete
+      multiple
+      id="checkboxes-tags-demo"
+      options={top100Films}
+      disableCloseOnSelect
+      getOptionLabel={(option) => option.name}
+      renderOption={(props, option, { selected }) => (
+        <li {...props}>
+              <Checkbox
+            icon={icon}
+            checkedIcon={checkedIcon}
+            style={{ marginRight: 8 }}
+            checked={selected}
+          />
+            <Avatar alt="Remy Sharp" src={option.img}/>
+            {option.name}
+        
+          
+        </li>
+      )}
+      style={{  }}
+      renderInput={(params) => (
+        <TextField {...params} label="TeamMates" placeholder="Select Members" />
+      )}
+    />
+ 
+           <p id="parent-modal-description">
+            Marketing
+           </p>
+           <Autocomplete
+      multiple
+      id="checkboxes-tags-demo"
+      options={top100Films}
+      disableCloseOnSelect
+      getOptionLabel={(option) => option.name}
+      renderOption={(props, option, { selected }) => (
+        <li {...props}>
+              <Checkbox
+            icon={icon}
+            checkedIcon={checkedIcon}
+            style={{ marginRight: 8 }}
+            checked={selected}
+          />
+            <Avatar alt="Remy Sharp" src={option.img}/>
+            {option.name}
+        
+          
+        </li>
+      )}
+      style={{  }}
+      renderInput={(params) => (
+        <TextField {...params} label="TeamMates" placeholder="Select Members" />
+      )}
+    />
+
+           <p id="parent-modal-description">
+            Design
+           </p>
+           <Autocomplete
+      multiple
+      id="checkboxes-tags-demo"
+      options={top100Films}
+      disableCloseOnSelect
+      getOptionLabel={(option) => option.name}
+      renderOption={(props, option, { selected }) => (
+        <li {...props}>
+              <Checkbox
+            icon={icon}
+            checkedIcon={checkedIcon}
+            style={{ marginRight: 8 }}
+            checked={selected}
+          />
+            <Avatar alt="Remy Sharp" src={option.img}/>
+            {option.name}
+        
+          
+        </li>
+      )}
+      style={{  }}
+      renderInput={(params) => (
+        <TextField {...params} label="TeamMates" placeholder="Select Members" />
+      )}
+    />
+           <Button onClick={() => handleClose()}  color="error">Cancel</Button> { " "}
+           <Button variant="contained" disableElevation>Update</Button>
+        </Box>
+      </Modal>
+
+{/* Second Modal For Adding New Plans */}
+     <Button onClick={handleOpen1} variant="contained"><AddBoxRoundedIcon variant="contained" /> New Plan</Button>
+      <Modal
+        open={open1}
+        onClose={handleClose1}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <Box sx={{ ...style, width: 400 }}>
+          <h2 id="parent-modal-title">Plan name</h2>
+          <p id="parent-modal-description">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor. Sit amet, consectetur adipiscing consectetur adipiscing elit.
+           </p>
+           <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              label="Name "
+              name="Name"
+              autoComplete="Name"
+              autoFocus
+              placeholder="Name Your Plan"
+            />
+           <Button onClick={() => handleClose1()}  color="error">Cancel</Button> { " "}
+           <Button variant="contained" disableElevation onClick={handleOpen2}>Create</Button>
+        </Box>
+      </Modal>
+
+      {/* Modal For Pointer Name */}
+      <Modal
+        open={open2}
+        onClose={handleClose2}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <Box sx={{ ...style, width: 400 }}>
+          <h2 id="parent-modal-title">Pointer name</h2>
+          <p id="parent-modal-description">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor. Sit amet, consectetur adipiscing consectetur adipiscing elit.
+           </p>
+           <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="Pointer"
+              label="Pointer Name "
+              name="Name"
+              autoComplete="Pointer Name"
+              autoFocus
+              placeholder="Name Pointer"
+            />
+           <Button onClick={() => handleClose2()}  color="error">Cancel</Button> { " "}
+           <Button variant="contained" disableElevation >Create</Button>
+        </Box>
+      </Modal>
+       </Box>
+       </Box>
+    </Box>
+    <Plans option={["one","two","Three"]} />
+    </>
   )
 }
 
