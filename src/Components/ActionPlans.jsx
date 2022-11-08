@@ -31,6 +31,7 @@ const ActionPlans = () => {
     const [open1, setOpen1] = React.useState(false);
     const [open2, setOpen2] = React.useState(false);
     const [categoryHandler,setCategoryHandler] = useState("");
+    const [,pointerHandler,setPointerHandler] = useState("");
     const [marketingData,setMarketingData] = useState([]);
     const [designData, setDesignData] = useState([]);
     const [salesData,setSalesData] = useState([]);
@@ -78,14 +79,19 @@ const ActionPlans = () => {
   };
 
   const handleSecondModalClick = () => {
-    alert(planName);
-    // addCategory(planName);
+    if(categoryHandler =="Marketing"){
+        addMarketingData(planName);
+    } else if(categoryHandler == "Design"){
+        addDesignData(planName)
+    } else {
+        addSalesData(planName);
+    }
+    console.log(marketingData,designData,salesData)
     handleOpen2();
-    // console.log(categories)
   }
+  console.log(marketingData,designData,salesData)
 
   const handleThirdModalClick = () => {
-     alert(pointerName);
      addPointerData(pointerName);
     handleClose2();
     handleClose1();
@@ -246,7 +252,9 @@ const ActionPlans = () => {
               placeholder="Name Your Plan"
             /> 
             <br /><br />
-            <select  style={{border:'1px solid',width:"80%"}}>
+            <select  onChange={(e) =>setCategoryHandler(e.target.value)} 
+            style=
+            {{border:'1px solid',width:"90%",height:"35px",fontStyle:"italic",fontSize:"18px"}}>
               <option value="">Department</option>
                 <option value="Marketing">Marketing</option>
                 <option value="Design">Design</option>
@@ -282,7 +290,16 @@ const ActionPlans = () => {
               autoComplete="Pointer Name"
               autoFocus
               placeholder="Name Pointer"
-            />
+            /> <br /> <br />
+            <br /><br />
+            <select  onChange={(e) =>setPointerHandler(e.target.value)} 
+            style=
+            {{border:'1px solid',width:"90%",height:"35px",fontStyle:"italic",fontSize:"18px"}}>
+              <option value="">Department</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Design">Design</option>
+                <option value="Sales">Sales</option>
+            </select>
            <Button onClick={() => handleClose2()}  color="error">Cancel</Button> { " "}
            <Button variant="contained" disableElevation onClick={() => handleThirdModalClick()}>Create</Button>
         </Box>
@@ -299,7 +316,8 @@ const ActionPlans = () => {
    <Box class="dropdown">
   <span >Marketing</span>
   <Box class="dropdown-content">
-  <p>Childrens</p>
+  {marketingData.length > 0 ? (marketingData.length > 0 && marketingData.map((el)=> <p>{el}</p>)) : <p>No Data</p> }
+ 
   </Box>
 </Box>
  <br />
@@ -307,7 +325,7 @@ const ActionPlans = () => {
    <Box class="dropdown">
   <span>Design</span>
   <Box class="dropdown-content">
-  <p>Childrens</p>
+  {designData.length > 0 ? (designData.length > 0 && designData.map((el)=> <p>{el}</p>)) : <p>No Data</p> }
   </Box>
 </Box>
 <br />
@@ -316,7 +334,7 @@ const ActionPlans = () => {
 <Box class="dropdown">
   <span>Sales</span>
   <Box class="dropdown-content">
-  <p>Childrens</p>
+  {salesData.length > 0 ? (salesData.length > 0 && salesData.map((el)=> <p>{el}</p>)) : <p>No Data</p> }
   </Box>
 </Box>
 </Box>    
