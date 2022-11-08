@@ -31,3 +31,35 @@
     transform: rotate(360deg);
   }
 }
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  background-color: #e6f1f9;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-style: italic;
+}
+
+.dropdown-content {
+  display: none;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 8px 10px;
+  align-items: right;
+  border-radius: 10px;
+  
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropDiv{
+  width: 80%;
+  margin: auto;
+  
+}

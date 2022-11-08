@@ -1,21 +1,24 @@
 import React from 'react'
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-import { Box } from '@mui/material';
+import { Box,Select } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import "./Plans.module.css"
 
-
-const Plans = ({option}) => {
-    const options = [
-        ...option
-      ];
-      const defaultOption = options[0];
+const Plans = ({value,pointerData}) => {
+    // const options = [
+    //     ...option
+    //   ];
+    console.log(value)
+      
   return (<>
-  <Box style={{display:"flex",width:"80%",margin:"auto"}}><Box style={{ width:"100%",margin:"auto"}}><Dropdown style={{border:"0px"}} options={options}  value={defaultOption} placeholder="Marketing"  /> </Box>
-  <LongMenu /></Box>
+  <Box style={{width:"80%",margin:"auto"}}>
+   
+  
+  </Box>
  
       
    
