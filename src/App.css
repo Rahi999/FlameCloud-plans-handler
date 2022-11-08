@@ -41,6 +41,8 @@
   border-radius: 8px;
   font-size: 20px;
   font-style: italic;
+  display: flex;
+  justify-content: space-between;
 }
 
 .dropdown-content {
@@ -51,7 +53,16 @@
   padding: 8px 10px;
   align-items: right;
   border-radius: 10px;
-  border: 2px solid teal;
+  margin-top: 30px;
+  width: 90%;
+
+  
+}
+.dropdown-content > p{
+  border: 2px solid rgba(203, 213, 225, 1);
+  padding: 5px;
+  font-style: italic;
+  border-radius: 8px;
 }
 
 .dropdown:hover .dropdown-content {
@@ -62,4 +73,7 @@
   width: 80%;
   margin: auto;
   
+}
+style{
+  border: 2px solid #e6f1f9;
 }

@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {Box,Typography,Modal,Button,TextField,Avatar, Select} from "@mui/material";
+import {Box,Typography,Modal,Button,TextField,Avatar, Select, IconButton} from "@mui/material";
 import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
 import AddBoxRoundedIcon from '@mui/icons-material/AddBoxRounded';
 import Checkbox from '@mui/material/Checkbox';
@@ -7,7 +7,18 @@ import Autocomplete from '@mui/material/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Plans from './Plans';
-import ItemLists from "./ItemLists"
+import ItemLists from "./ItemLists";
+import { styled, alpha } from '@mui/material/styles';
+import Menu, { MenuProps } from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Divider from '@mui/material/Divider';
+import ArchiveIcon from '@mui/icons-material/Archive';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import "./Plans.module.css"
 
 const ActionPlans = () => {
 
@@ -38,7 +49,11 @@ const ActionPlans = () => {
     const [pointerData, setPointerData] = useState([]);
     const [planName, setPlanName] = useState("");
     const [pointerName,setPointerName] = useState("");
+    const [marketingDataModal,setMarketingDataModal] = useState([]);
+    const [designDataModa,setDesignDataModal] = useState([]);
+    const [salesDataModal,setSalesDataModal] = useState([]);
 
+    console.log(marketingDataModal,designDataModa,salesDataModal)
     const addMarketingData = (newData) => {
         setMarketingData([...marketingData,newData])
     };
@@ -81,13 +96,17 @@ const ActionPlans = () => {
   const handleSecondModalClick = () => {
     if(categoryHandler =="Marketing"){
         addMarketingData(planName);
+        handleOpen2();
     } else if(categoryHandler == "Design"){
-        addDesignData(planName)
-    } else {
+        addDesignData(planName);
+        handleOpen2();
+    } else if(categoryHandler == "Sales"){
         addSalesData(planName);
+        handleOpen2();
+    }else {
+        alert("Please Choose Department")
     }
-    console.log(marketingData,designData,salesData)
-    handleOpen2();
+    
   }
   console.log(marketingData,designData,salesData)
 
@@ -107,22 +126,86 @@ const ActionPlans = () => {
    
   ];
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open5 = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose5 = () => {
+    setAnchorEl(null);
+  };
  
+  const StyledMenu = styled((props: MenuProps) => (
+    <Menu
+      elevation={0}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      {...props}
+    />
+  ))(({ theme }) => ({
+    '& .MuiPaper-root': {
+      borderRadius: 6,
+      marginTop: theme.spacing(1),
+      minWidth: 180,
+      color:
+        theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+      boxShadow:
+        'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+      '& .MuiMenu-list': {
+        padding: '4px 0',
+      },
+      '& .MuiMenuItem-root': {
+        '& .MuiSvgIcon-root': {
+          fontSize: 18,
+          color: theme.palette.text.secondary,
+          marginRight: theme.spacing(1.5),
+        },
+        '&:active': {
+          backgroundColor: alpha(
+            theme.palette.primary.main,
+            theme.palette.action.selectedOpacity,
+          ),
+        },
+      },
+    },
+  }));
+
+  const [marketingDataStatus,setMarketingDataStatus] = useState("")
+  const handleMarketingDataEdit = () => {
+    const updatedData = prompt("Please Enter New Category");
+    if(updatedData !== null ){
+      setMarketingDataStatus(updatedData)
+    }
+    // handleClose5()
+  }
+
+  
   return (
     <>
     <Box style={{width:"80%",margin:"auto"}}>
-        <Typography>SOP</Typography>
-       <Box style={{display:"flex",border: "1px solid"}}>
+        <Typography clas="topText" style={{
+            fontSize: "14px",
+            color: "grey",
+            fontSyle: "italic",
+            marginTop: "120px",
+            lineHeight: "19.12px"
+        }}>SOP</Typography>
+       <Box style={{display:"flex",}}>
        <Typography style={{
-        fontSize: "44px",
+        fontSize: "32px",
         width: "300px",
         left: "120px",
         top: "144px",
-        border:"1px solid",
-        borderRadis: "nullpx"
+        borderRadis: ""
         
-       }}>Actions Plans</Typography>
-       <Box style={{textAlign : "right",border:"1px solid",width:"800px",justifyContent: "space-around"}}>
+       }} className="actionText">Actions Plans</Typography>
+       <Box style={{textAlign : "right",width:"800px",justifyContent: "space-around"}}>
        
        {/* First Modal */}
        <Button onClick={handleOpen} variant="outlined"><GroupRoundedIcon /> Manage Access</Button>
@@ -135,7 +218,13 @@ const ActionPlans = () => {
       >
         <Box sx={{ ...style, width: 400 }}>
           <h2 id="parent-modal-title">SOP Access</h2>
-          <p id="parent-modal-description">
+          <p id="parent-modal-description" style={{
+            fontFamily:"Manrope",
+            color: "#2563EB",
+            fontSize: "18px",
+            fontStyle: "normal",
+            fontWeight: "700"
+                      }}>
             Sales
            </p>
            <Autocomplete
@@ -143,14 +232,19 @@ const ActionPlans = () => {
       id="checkboxes-tags-demo"
       options={teamMates}
       disableCloseOnSelect
+      onChange={(event, newValue: "" ) => {
+        setSalesDataModal(newValue);
+        }}
       getOptionLabel={(option) => option.name}
       renderOption={(props, option, { selected }) => (
+       
         <li {...props}>
               <Checkbox
             icon={icon}
             checkedIcon={checkedIcon}
             style={{ marginRight: 8 }}
             checked={selected}
+            
           />
             <Avatar alt="Remy Sharp" src={option.img}/>
             {option.name}
@@ -164,10 +258,19 @@ const ActionPlans = () => {
       )}
     />
  
-           <p id="parent-modal-description">
+           <p id="parent-modal-description" style={{
+            fontFamily:"Manrope",
+            color: "#2563EB",
+            fontSize: "18px",
+            fontStyle: "normal",
+            fontWeight: "700"
+          }}>
             Marketing
            </p>
            <Autocomplete
+           onChange={(event, newValue: "" ) => {
+            setMarketingDataModal(newValue);
+            }}
       multiple
       id="checkboxes-tags-demo"
       options={teamMates}
@@ -193,10 +296,20 @@ const ActionPlans = () => {
       )}
     />
 
-           <p id="parent-modal-description">
+           <p id="parent-modal-description" style={{
+            fontFamily:"Manrope",
+            color: "#2563EB",
+            fontSize: "18px",
+            fontStyle: "normal",
+            fontWeight: "700"
+          }}>
             Design
            </p>
            <Autocomplete
+           onChange={(event, newValue: "" ) => {
+            setDesignDataModal(newValue);
+            }}
+           style={{border: "3px solid teal"}}
       multiple
       id="checkboxes-tags-demo"
       options={teamMates}
@@ -220,9 +333,12 @@ const ActionPlans = () => {
       renderInput={(params) => (
         <TextField {...params} label="TeamMates" placeholder="Select Members" />
       )}
-    />
+    /> <br />
            <Button onClick={() => handleClose()}  color="error">Cancel</Button> { " "}
-           <Button variant="contained" disableElevation>Update</Button>
+           <Button onClick={()=>{
+            alert("You Have Succesfully Added Peoples");
+            handleClose()
+           }} variant="contained" disableElevation>Update</Button>
         </Box>
       </Modal>
 
@@ -254,7 +370,7 @@ const ActionPlans = () => {
             <br /><br />
             <select  onChange={(e) =>setCategoryHandler(e.target.value)} 
             style=
-            {{border:'1px solid',width:"90%",height:"35px",fontStyle:"italic",fontSize:"18px"}}>
+            {{border:'1px solid #e6f1f9',width:"90%",height:"45px",fontStyle:"normal",fontSize:"18px",}}>
               <option value="">Department</option>
                 <option value="Marketing">Marketing</option>
                 <option value="Design">Design</option>
@@ -293,8 +409,8 @@ const ActionPlans = () => {
             /> <br /> <br />
             <br /><br />
             <select  onChange={(e) =>setPointerHandler(e.target.value)} 
-            style=
-            {{border:'1px solid',width:"90%",height:"35px",fontStyle:"italic",fontSize:"18px"}}>
+             style=
+             {{border:'1px solid #e6f1f9',width:"90%",height:"45px",fontStyle:"normal",fontSize:"18px",}}>
               <option value="">Department</option>
                 <option value="Marketing">Marketing</option>
                 <option value="Design">Design</option>
@@ -314,28 +430,148 @@ const ActionPlans = () => {
 
    <Box className="dropDiv">
    <Box class="dropdown">
-  <span >Marketing</span>
+  <span >{marketingDataStatus ? marketingDataStatus : "Marketing"}</span>
+  
   <Box class="dropdown-content">
-  {marketingData.length > 0 ? (marketingData.length > 0 && marketingData.map((el)=> <p>{el}</p>)) : <p>No Data</p> }
+  {marketingData.length > 0 && marketingData.map((el)=> <p>{el}</p>) }
+  {marketingDataModal.length > 0 && marketingDataModal.map((el)=> <p>{el.name}</p>) }
  
   </Box>
+  {/* ------------------------------ */}
+
+  <div>
+      <Button
+        id="demo-customized-button"
+        aria-controls={open5 ? 'demo-customized-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open5 ? 'true' : undefined}
+        variant=""
+        disableElevation
+        onClick={handleClick}
+        endIcon={<KeyboardArrowDownIcon />}
+      >
+        <Avatar src="https://image.shutterstock.com/image-illustration/menu-three-dots-line-icon-260nw-2200198353.jpg" />
+      </Button>
+      <StyledMenu
+        id="demo-customized-menu"
+        MenuListProps={{
+          'aria-labelledby': 'demo-customized-button',
+        }}
+        anchorEl={anchorEl}
+        open={open5}
+        onClose={handleClose5}
+      >
+        <MenuItem  disableRipple>
+          <p onClick={()=> alert("Workign")}>Edit</p>Edit
+        </MenuItem>
+        <MenuItem onClick={handleClose5} disableRipple>
+          Manage Access
+        </MenuItem>
+        <Divider sx={{ my: 0.5 }} />
+        <MenuItem onClick={handleClose5} disableRipple style={{color: "red"}}>
+          Delete
+        </MenuItem>
+        
+      </StyledMenu>
+    </div>
+  {/* ------------------------- */}
 </Box>
  <br />
  
    <Box class="dropdown">
   <span>Design</span>
+
   <Box class="dropdown-content">
-  {designData.length > 0 ? (designData.length > 0 && designData.map((el)=> <p>{el}</p>)) : <p>No Data</p> }
+  {designData.length > 0 && designData.map((el)=> <p>{el}</p>) }
+  {designDataModa.length > 0 && designDataModa.map((el)=> <p>{el.name}</p>) }
   </Box>
+  {/* --------------- */}
+
+<div>
+      <Button
+        id="demo-customized-button"
+        aria-controls={open5 ? 'demo-customized-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open5 ? 'true' : undefined}
+        variant=""
+        disableElevation
+        onClick={handleClick}
+        endIcon={<KeyboardArrowDownIcon />}
+      >
+                <Avatar src="https://image.shutterstock.com/image-illustration/menu-three-dots-line-icon-260nw-2200198353.jpg" />
+
+      </Button>
+      <StyledMenu
+        id="demo-customized-menu"
+        MenuListProps={{
+          'aria-labelledby': 'demo-customized-button',
+        }}
+        anchorEl={anchorEl}
+        open={open5}
+        onClose={handleClose5}
+      >
+       <MenuItem onClick={handleClose5} disableRipple>
+          Edit
+        </MenuItem>
+        <MenuItem onClick={handleClose5} disableRipple>
+          Manage Access
+        </MenuItem>
+        <Divider sx={{ my: 0.5 }} />
+        <MenuItem onClick={handleClose5} disableRipple style={{color: "red"}}>
+          Delete
+        </MenuItem>
+      </StyledMenu>
+    </div>
+{/* ------------------- */}
 </Box>
 <br />
 
 
 <Box class="dropdown">
   <span>Sales</span>
+  
   <Box class="dropdown-content">
-  {salesData.length > 0 ? (salesData.length > 0 && salesData.map((el)=> <p>{el}</p>)) : <p>No Data</p> }
+  {salesData.length > 0 && salesData.map((el)=> <p>{el}</p>) }
+  {salesDataModal.length > 0 && salesDataModal.map((el)=> <p>{el.name}</p>) }
   </Box>
+
+{/* ------------------- */}
+
+<div>
+      <Button
+        id="demo-customized-button"
+        aria-controls={open5 ? 'demo-customized-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open5 ? 'true' : undefined}
+        variant=""
+        disableElevation
+        onClick={handleClick}
+        endIcon={<KeyboardArrowDownIcon />}
+      >
+        <Avatar src="https://image.shutterstock.com/image-illustration/menu-three-dots-line-icon-260nw-2200198353.jpg" />
+      </Button>
+      <StyledMenu
+        id="demo-customized-menu"
+        MenuListProps={{
+          'aria-labelledby': 'demo-customized-button',
+        }}
+        anchorEl={anchorEl}
+        open={open5}
+        onClose={handleClose5}
+      >
+       <MenuItem onClick={handleClose5} disableRipple>
+          Edit
+        </MenuItem>
+        <MenuItem onClick={handleClose5} disableRipple>
+          Manage Access
+        </MenuItem>
+        <Divider sx={{ my: 0.5 }} />
+        <MenuItem onClick={()=> handleClose5} disableRipple style={{color: "red"}}>
+          Delete
+        </MenuItem>
+      </StyledMenu>
+    </div>
+{/* -------------------- */}
 </Box>
 </Box>    
     </>
@@ -343,3 +579,6 @@ const ActionPlans = () => {
 }
 
 export default ActionPlans
+
+
+
