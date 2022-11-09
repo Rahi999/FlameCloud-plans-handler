@@ -200,13 +200,33 @@ const ActionPlans = () => {
   }));
 
   const [marketingDataStatus, setMarketingDataStatus] = useState("");
+  const [designDataStatus, setDesignDataStatus] = useState("");
+  const [salesDataStatus, setSalesDataStatus] = useState("");
   const handleMarketingDataEdit = () => {
     const updatedData = prompt("Please Enter New Category");
     if (updatedData !== null) {
       setMarketingDataStatus(updatedData);
     }
-    // handleClose5()
+    handleClose5()
   };
+
+  const handleDesignDataEdit = () => {
+    const updatedData = prompt("Please Enter New Category");
+    if (updatedData !== null) {
+      setDesignDataStatus(updatedData);
+    }
+    handleClose5() 
+  }
+
+  const handleSalesDataEdit = () => {
+    const updatedData = prompt("Please Enter New Category");
+    if (updatedData !== null) {
+      setSalesDataStatus(updatedData);
+    }
+    handleClose5() 
+  }
+
+  
 
   return (
     <>
@@ -531,55 +551,26 @@ const ActionPlans = () => {
               marketingDataModal.map((el) => <p>{el.name}</p>)}
           </Box>
           {/* ------------------------------ */}
+         <Box>
+         <div class="dropdown2">
+  <button class="dropbtn2">
+  <Avatar src="https://image.shutterstock.com/image-illustration/menu-three-dots-line-icon-260nw-2200198353.jpg" />
+  </button>
+  <div class="dropdown-content2">
+    <p onClick={()=> handleMarketingDataEdit()}>Edit</p>
+    <p onClick={handleOpen}>Manage Access</p>
+    <p style={{color:"red"}} onClick={()=> alert("Delete Not Working")}>Delete</p>
+  </div>
+</div>
 
-          <div>
-            <Button
-              id="demo-customized-button"
-              aria-controls={open5 ? "demo-customized-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open5 ? "true" : undefined}
-              variant=""
-              disableElevation
-              onClick={handleClick}
-              endIcon={<KeyboardArrowDownIcon />}
-            >
-              <Avatar src="https://image.shutterstock.com/image-illustration/menu-three-dots-line-icon-260nw-2200198353.jpg" />
-            </Button>
-            <StyledMenu
-              id="demo-customized-menu"
-              MenuListProps={{
-                "aria-labelledby": "demo-customized-button"
-              }}
-              anchorEl={anchorEl}
-              open={open5}
-              onClose={handleClose5}
-            >
-            <p style={{
-                fontSize: "15px",fontStyle: "italic"
-            }}
-             onClick={() => alert("Workign")}>
-                Edit
-                </p>
-              
-              <p onClick={handleClose5} disableRipple>
-                Manage Access
-              </p>
-              <Divider sx={{ my: 0.5 }} />
-              <p
-                onClick={handleClose5}
-                disableRipple
-                style={{ color: "red" }}
-              >
-                Delete
-              </p>
-            </StyledMenu>
-          </div>
+         </Box>
+          
           {/* ------------------------- */}
         </Box>
         <br />
 
         <Box class="dropdown">
-          <span>Design</span>
+          <span>{designDataStatus ? designDataStatus : "Design"}</span>
 
           <Box class="dropdown-content">
             {designData.length > 0 && designData.map((el) => <p>{el}</p>)}
@@ -588,50 +579,25 @@ const ActionPlans = () => {
           </Box>
           {/* --------------- */}
 
-          <div>
-            <Button
-              id="demo-customized-button"
-              aria-controls={open5 ? "demo-customized-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open5 ? "true" : undefined}
-              variant=""
-              disableElevation
-              onClick={handleClick}
-              endIcon={<KeyboardArrowDownIcon />}
-            >
-              <Avatar src="https://image.shutterstock.com/image-illustration/menu-three-dots-line-icon-260nw-2200198353.jpg" />
-            </Button>
-            <StyledMenu
-              id="demo-customized-menu"
-              MenuListProps={{
-                "aria-labelledby": "demo-customized-button"
-              }}
-              anchorEl={anchorEl}
-              open={open5}
-              onClose={handleClose5}
-            >
-              <p onClick={() => alert("Working")} disableRipple>
-                Edit
-              </p>
-              <p onClick={handleClose5} disableRipple>
-                Manage Access
-              </p>
-              <Divider sx={{ my: 0.5 }} />
-              <p
-                onClick={handleClose5}
-                disableRipple
-                style={{ color: "red" }}
-              >
-                Delete
-              </p>
-            </StyledMenu>
-          </div>
+          <Box>
+         <div class="dropdown2">
+  <button class="dropbtn2">
+  <Avatar src="https://image.shutterstock.com/image-illustration/menu-three-dots-line-icon-260nw-2200198353.jpg" />
+  </button>
+  <div class="dropdown-content2">
+    <p onClick={() => handleDesignDataEdit()}>Edit</p>
+    <p onClick={handleOpen}>Manage Access</p>
+    <p style={{color:"red"}} onClick={()=> alert("Delete Not Working")}>Delete</p>
+  </div>
+</div>
+
+         </Box>
           {/* ------------------- */}
         </Box>
         <br />
 
         <Box class="dropdown">
-          <span>Sales</span>
+          <span>{salesDataStatus ? salesDataStatus : "Sales"}</span>
 
           <Box class="dropdown-content">
             {salesData.length > 0 && salesData.map((el) => <p>{el}</p>)}
@@ -641,44 +607,19 @@ const ActionPlans = () => {
 
           {/* ------------------- */}
 
-          <div>
-            <Button
-              id="demo-customized-button"
-              aria-controls={open5 ? "demo-customized-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open5 ? "true" : undefined}
-              variant=""
-              disableElevation
-              onClick={handleClick}
-              endIcon={<KeyboardArrowDownIcon />}
-            >
-              <Avatar src="https://image.shutterstock.com/image-illustration/menu-three-dots-line-icon-260nw-2200198353.jpg" />
-            </Button>
-            <StyledMenu
-              id="demo-customized-menu"
-              MenuListProps={{
-                "aria-labelledby": "demo-customized-button"
-              }}
-              anchorEl={anchorEl}
-              open={open5}
-              onClose={handleClose5}
-            >
-              <p onClick={handleClose5} disableRipple>
-                Edit
-              </p>
-              <p onClick={handleClose5} disableRipple>
-                Manage Access
-              </p>
-              <Divider sx={{ my: 0.5 }} />
-              <p
-                onClick={() => handleClose5}
-                disableRipple
-                style={{ color: "red" }}
-              >
-                Delete
-              </p>
-            </StyledMenu>
-          </div>
+          <Box>
+         <div class="dropdown2">
+  <button class="dropbtn2">
+  <Avatar src="https://image.shutterstock.com/image-illustration/menu-three-dots-line-icon-260nw-2200198353.jpg" />
+  </button>
+  <div class="dropdown-content2">
+    <p onClick={()=> handleSalesDataEdit()}>Edit</p>
+    <p onClick={handleOpen}>Manage Access</p>
+    <p style={{color:"red"}} onClick={()=> alert("Delete Not Working")}>Delete</p>
+  </div>
+</div>
+
+         </Box>
           {/* -------------------- */}
         </Box>
       </Box>
