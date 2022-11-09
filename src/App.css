@@ -54,7 +54,7 @@
   align-items: right;
   border-radius: 10px;
   margin-top: 30px;
-  width: 90%;
+  width: 80%;
 
   
 }
@@ -129,4 +129,12 @@ style{
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown2:hover .dropbtn2 {
   background-color: ;
+}
+
+@media screen and (max-width: 600px){
+  #newPlan{
+    margin-top: 20px;
+  }
+  #manageAccess{
+  }
 }

@@ -44,34 +44,49 @@ const ActionPlans = () => {
     pb: 3
   };
 
+  const marketingLocalStorage = JSON.parse(localStorage.getItem("marketingDataModal"));
+  const designLocalStorage = JSON.parse(localStorage.getItem("designDataModal"));
+  const salesLocalStorage = JSON.parse(localStorage.getItem("salesDataModal"));
+  const localMarketingData = JSON.parse(localStorage.getItem("MarketingDataSecondModal"));
+  const localDesignData = JSON.parse(localStorage.getItem("DesignDataSecondModal"));
+  const localSalesData = JSON.parse(localStorage.getItem("SalesDataSecondModal"));
+
+
+  console.log(localMarketingData,localDesignData,localSalesData)
+
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
   const [open, setOpen] = React.useState(false);
   const [open1, setOpen1] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const [categoryHandler, setCategoryHandler] = useState("");
-  const [, pointerHandler, setPointerHandler] = useState("");
-  const [marketingData, setMarketingData] = useState([]);
-  const [designData, setDesignData] = useState([]);
-  const [salesData, setSalesData] = useState([]);
+  const [pointerHandler, setPointerHandler] = useState("");
+  const [marketingData, setMarketingData] = useState(localMarketingData || []);
+  const [designData, setDesignData] = useState(localDesignData || []);
+  const [salesData, setSalesData] = useState(localSalesData || []);
   const [pointerData, setPointerData] = useState([]);
   const [planName, setPlanName] = useState("");
   const [pointerName, setPointerName] = useState("");
-  const [marketingDataModal, setMarketingDataModal] = useState([]);
-  const [designDataModa, setDesignDataModal] = useState([]);
-  const [salesDataModal, setSalesDataModal] = useState([]);
+  const [marketingDataModal, setMarketingDataModal] = useState(marketingLocalStorage || []);
+  const [designDataModa, setDesignDataModal] = useState( designLocalStorage ||[]);
+  const [salesDataModal, setSalesDataModal] = useState( salesLocalStorage || []);
 
   console.log(marketingDataModal, designDataModa, salesDataModal);
   const addMarketingData = (newData) => {
     setMarketingData([...marketingData, newData]);
+    localStorage.setItem("MarketingDataSecondModal",JSON.stringify(marketingData));
   };
 
   const addDesignData = (newData) => {
     setDesignData([...designData, newData]);
+    localStorage.setItem("DesignDataSecondModal",JSON.stringify(designData));
+
   };
 
   const addSalesData = (newData) => {
     setSalesData([...salesData, newData]);
+    localStorage.setItem("SalesDataSecondModal",JSON.stringify(salesData));
+
   };
 
   const addPointerData = (newPointer) => {
@@ -104,12 +119,15 @@ const ActionPlans = () => {
   const handleSecondModalClick = () => {
     if (categoryHandler == "Marketing") {
       addMarketingData(planName);
+      localStorage.setItem("MarketingDataSecondModal",JSON.stringify(marketingData));
       handleOpen2();
     } else if (categoryHandler == "Design") {
       addDesignData(planName);
+      localStorage.setItem("DesignDataSecondModal",JSON.stringify(designData));
       handleOpen2();
     } else if (categoryHandler == "Sales") {
       addSalesData(planName);
+      localStorage.setItem("SalesDataSecondModal",JSON.stringify(salesData));
       handleOpen2();
     } else {
       alert("Please Choose Department");
@@ -264,8 +282,8 @@ const ActionPlans = () => {
             }}
           >
             {/* First Modal */}
-            <Button onClick={handleOpen} variant="outlined">
-              <GroupRoundedIcon /> Manage Access
+            <Button id="manageAccess" onClick={handleOpen} variant="outlined">
+              <GroupRoundedIcon /> {" "} Manage Access
             </Button>{" "}
             <Modal
               open={open}
@@ -406,10 +424,14 @@ const ActionPlans = () => {
                 <Button onClick={() => handleClose()} color="error">
                   Cancel
                 </Button>{" "}
-                <Button
+                <Button 
                   onClick={() => {
                     alert("You Have Succesfully Added Peoples");
                     handleClose();
+                    localStorage.setItem("designDataModal", JSON.stringify(designDataModa))
+                    localStorage.setItem("salesDataModal", JSON.stringify(salesDataModal))
+                    localStorage.setItem("marketingDataModal", JSON.stringify(marketingDataModal))
+
                   }}
                   variant="contained"
                   disableElevation
@@ -419,7 +441,7 @@ const ActionPlans = () => {
               </Box>
             </Modal>
             {/* Second Modal For Adding New Plans */}
-            <Button onClick={handleOpen1} variant="contained">
+            <Button id="newPlan" onClick={handleOpen1} variant="contained">
               <AddBoxRoundedIcon variant="contained" /> New Plan
             </Button>
             <Modal
@@ -543,7 +565,7 @@ const ActionPlans = () => {
 
       <Box className="dropDiv">
         <Box class="dropdown">
-          <span>{marketingDataStatus ? marketingDataStatus : "Marketing"}</span>
+        <span> <Button onClick={handleOpen1}><AddBoxRoundedIcon variant="contained" /></Button> {marketingDataStatus ? marketingDataStatus : "Marketing"}</span>
 
           <Box class="dropdown-content">
             {marketingData.length > 0 && marketingData.map((el) => <p>{el}</p>)}
@@ -570,7 +592,8 @@ const ActionPlans = () => {
         <br />
 
         <Box class="dropdown">
-          <span>{designDataStatus ? designDataStatus : "Design"}</span>
+          <span><Button onClick={handleOpen1}><AddBoxRoundedIcon variant="contained" /></Button>
+          {designDataStatus ? designDataStatus : "Design"}</span>
 
           <Box class="dropdown-content">
             {designData.length > 0 && designData.map((el) => <p>{el}</p>)}
@@ -597,7 +620,8 @@ const ActionPlans = () => {
         <br />
 
         <Box class="dropdown">
-          <span>{salesDataStatus ? salesDataStatus : "Sales"}</span>
+          <span> <Button onClick={handleOpen1}><AddBoxRoundedIcon variant="contained" /></Button>
+          {salesDataStatus ? salesDataStatus : "Sales"}</span>
 
           <Box class="dropdown-content">
             {salesData.length > 0 && salesData.map((el) => <p>{el}</p>)}
