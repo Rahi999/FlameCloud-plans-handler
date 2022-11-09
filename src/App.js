@@ -1,13 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Box } from '@mui/material';
-import ActionPlans from './Components/ActionPlans';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { Box } from "@mui/material";
+import ActionPlans from "./Components/ActionPlans";
 
 function App() {
   return (
-    <Box >
-       <ActionPlans />
+    <Box>
+      <ActionPlans />
     </Box>
   );
 }

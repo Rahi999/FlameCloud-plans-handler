@@ -44,15 +44,24 @@ const ActionPlans = () => {
     pb: 3
   };
 
-  const marketingLocalStorage = JSON.parse(localStorage.getItem("marketingDataModal"));
-  const designLocalStorage = JSON.parse(localStorage.getItem("designDataModal"));
+  const marketingLocalStorage = JSON.parse(
+    localStorage.getItem("marketingDataModal")
+  );
+  const designLocalStorage = JSON.parse(
+    localStorage.getItem("designDataModal")
+  );
   const salesLocalStorage = JSON.parse(localStorage.getItem("salesDataModal"));
-  const localMarketingData = JSON.parse(localStorage.getItem("MarketingDataSecondModal"));
-  const localDesignData = JSON.parse(localStorage.getItem("DesignDataSecondModal"));
-  const localSalesData = JSON.parse(localStorage.getItem("SalesDataSecondModal"));
+  const localMarketingData = JSON.parse(
+    localStorage.getItem("MarketingDataSecondModal")
+  );
+  const localDesignData = JSON.parse(
+    localStorage.getItem("DesignDataSecondModal")
+  );
+  const localSalesData = JSON.parse(
+    localStorage.getItem("SalesDataSecondModal")
+  );
 
-
-  console.log(localMarketingData,localDesignData,localSalesData)
+  console.log(localMarketingData, localDesignData, localSalesData);
 
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -67,26 +76,31 @@ const ActionPlans = () => {
   const [pointerData, setPointerData] = useState([]);
   const [planName, setPlanName] = useState("");
   const [pointerName, setPointerName] = useState("");
-  const [marketingDataModal, setMarketingDataModal] = useState(marketingLocalStorage || []);
-  const [designDataModa, setDesignDataModal] = useState( designLocalStorage ||[]);
-  const [salesDataModal, setSalesDataModal] = useState( salesLocalStorage || []);
+  const [marketingDataModal, setMarketingDataModal] = useState(
+    marketingLocalStorage || []
+  );
+  const [designDataModa, setDesignDataModal] = useState(
+    designLocalStorage || []
+  );
+  const [salesDataModal, setSalesDataModal] = useState(salesLocalStorage || []);
 
   console.log(marketingDataModal, designDataModa, salesDataModal);
   const addMarketingData = (newData) => {
     setMarketingData([...marketingData, newData]);
-    localStorage.setItem("MarketingDataSecondModal",JSON.stringify(marketingData));
+    localStorage.setItem(
+      "MarketingDataSecondModal",
+      JSON.stringify(marketingData)
+    );
   };
 
   const addDesignData = (newData) => {
     setDesignData([...designData, newData]);
-    localStorage.setItem("DesignDataSecondModal",JSON.stringify(designData));
-
+    localStorage.setItem("DesignDataSecondModal", JSON.stringify(designData));
   };
 
   const addSalesData = (newData) => {
     setSalesData([...salesData, newData]);
-    localStorage.setItem("SalesDataSecondModal",JSON.stringify(salesData));
-
+    localStorage.setItem("SalesDataSecondModal", JSON.stringify(salesData));
   };
 
   const addPointerData = (newPointer) => {
@@ -119,15 +133,18 @@ const ActionPlans = () => {
   const handleSecondModalClick = () => {
     if (categoryHandler == "Marketing") {
       addMarketingData(planName);
-      localStorage.setItem("MarketingDataSecondModal",JSON.stringify(marketingData));
+      localStorage.setItem(
+        "MarketingDataSecondModal",
+        JSON.stringify(marketingData)
+      );
       handleOpen2();
     } else if (categoryHandler == "Design") {
       addDesignData(planName);
-      localStorage.setItem("DesignDataSecondModal",JSON.stringify(designData));
+      localStorage.setItem("DesignDataSecondModal", JSON.stringify(designData));
       handleOpen2();
     } else if (categoryHandler == "Sales") {
       addSalesData(planName);
-      localStorage.setItem("SalesDataSecondModal",JSON.stringify(salesData));
+      localStorage.setItem("SalesDataSecondModal", JSON.stringify(salesData));
       handleOpen2();
     } else {
       alert("Please Choose Department");
@@ -225,7 +242,7 @@ const ActionPlans = () => {
     if (updatedData !== null) {
       setMarketingDataStatus(updatedData);
     }
-    handleClose5()
+    handleClose5();
   };
 
   const handleDesignDataEdit = () => {
@@ -233,18 +250,16 @@ const ActionPlans = () => {
     if (updatedData !== null) {
       setDesignDataStatus(updatedData);
     }
-    handleClose5() 
-  }
+    handleClose5();
+  };
 
   const handleSalesDataEdit = () => {
     const updatedData = prompt("Please Enter New Category");
     if (updatedData !== null) {
       setSalesDataStatus(updatedData);
     }
-    handleClose5() 
-  }
-
-  
+    handleClose5();
+  };
 
   return (
     <>
@@ -283,7 +298,7 @@ const ActionPlans = () => {
           >
             {/* First Modal */}
             <Button id="manageAccess" onClick={handleOpen} variant="outlined">
-              <GroupRoundedIcon /> {" "} Manage Access
+              <GroupRoundedIcon /> Manage Access
             </Button>{" "}
             <Modal
               open={open}
@@ -424,14 +439,22 @@ const ActionPlans = () => {
                 <Button onClick={() => handleClose()} color="error">
                   Cancel
                 </Button>{" "}
-                <Button 
+                <Button
                   onClick={() => {
                     alert("You Have Succesfully Added Peoples");
                     handleClose();
-                    localStorage.setItem("designDataModal", JSON.stringify(designDataModa))
-                    localStorage.setItem("salesDataModal", JSON.stringify(salesDataModal))
-                    localStorage.setItem("marketingDataModal", JSON.stringify(marketingDataModal))
-
+                    localStorage.setItem(
+                      "designDataModal",
+                      JSON.stringify(designDataModa)
+                    );
+                    localStorage.setItem(
+                      "salesDataModal",
+                      JSON.stringify(salesDataModal)
+                    );
+                    localStorage.setItem(
+                      "marketingDataModal",
+                      JSON.stringify(marketingDataModal)
+                    );
                   }}
                   variant="contained"
                   disableElevation
@@ -565,7 +588,13 @@ const ActionPlans = () => {
 
       <Box className="dropDiv">
         <Box class="dropdown">
-        <span> <Button onClick={handleOpen1}><AddBoxRoundedIcon variant="contained" /></Button> {marketingDataStatus ? marketingDataStatus : "Marketing"}</span>
+          <span>
+            {" "}
+            <Button onClick={handleOpen1}>
+              <AddBoxRoundedIcon variant="contained" />
+            </Button>{" "}
+            {marketingDataStatus ? marketingDataStatus : "Marketing"}
+          </span>
 
           <Box class="dropdown-content">
             {marketingData.length > 0 && marketingData.map((el) => <p>{el}</p>)}
@@ -573,27 +602,35 @@ const ActionPlans = () => {
               marketingDataModal.map((el) => <p>{el.name}</p>)}
           </Box>
           {/* ------------------------------ */}
-         <Box>
-         <div class="dropdown2">
-  <button class="dropbtn2">
-  <Avatar src="https://image.shutterstock.com/image-illustration/menu-three-dots-line-icon-260nw-2200198353.jpg" />
-  </button>
-  <div class="dropdown-content2">
-    <p onClick={()=> handleMarketingDataEdit()}>Edit</p>
-    <p onClick={handleOpen}>Manage Access</p>
-    <p style={{color:"red"}} onClick={()=> alert("Delete Not Working")}>Delete</p>
-  </div>
-</div>
+          <Box>
+            <div class="dropdown2">
+              <button class="dropbtn2">
+                <Avatar src="https://image.shutterstock.com/image-illustration/menu-three-dots-line-icon-260nw-2200198353.jpg" />
+              </button>
+              <div class="dropdown-content2">
+                <p onClick={() => handleMarketingDataEdit()}>Edit</p>
+                <p onClick={handleOpen}>Manage Access</p>
+                <p
+                  style={{ color: "red" }}
+                  onClick={() => alert("Delete Not Working")}
+                >
+                  Delete
+                </p>
+              </div>
+            </div>
+          </Box>
 
-         </Box>
-          
           {/* ------------------------- */}
         </Box>
         <br />
 
         <Box class="dropdown">
-          <span><Button onClick={handleOpen1}><AddBoxRoundedIcon variant="contained" /></Button>
-          {designDataStatus ? designDataStatus : "Design"}</span>
+          <span>
+            <Button onClick={handleOpen1}>
+              <AddBoxRoundedIcon variant="contained" />
+            </Button>
+            {designDataStatus ? designDataStatus : "Design"}
+          </span>
 
           <Box class="dropdown-content">
             {designData.length > 0 && designData.map((el) => <p>{el}</p>)}
@@ -603,25 +640,34 @@ const ActionPlans = () => {
           {/* --------------- */}
 
           <Box>
-         <div class="dropdown2">
-  <button class="dropbtn2">
-  <Avatar src="https://image.shutterstock.com/image-illustration/menu-three-dots-line-icon-260nw-2200198353.jpg" />
-  </button>
-  <div class="dropdown-content2">
-    <p onClick={() => handleDesignDataEdit()}>Edit</p>
-    <p onClick={handleOpen}>Manage Access</p>
-    <p style={{color:"red"}} onClick={()=> alert("Delete Not Working")}>Delete</p>
-  </div>
-</div>
-
-         </Box>
+            <div class="dropdown2">
+              <button class="dropbtn2">
+                <Avatar src="https://image.shutterstock.com/image-illustration/menu-three-dots-line-icon-260nw-2200198353.jpg" />
+              </button>
+              <div class="dropdown-content2">
+                <p onClick={() => handleDesignDataEdit()}>Edit</p>
+                <p onClick={handleOpen}>Manage Access</p>
+                <p
+                  style={{ color: "red" }}
+                  onClick={() => alert("Delete Not Working")}
+                >
+                  Delete
+                </p>
+              </div>
+            </div>
+          </Box>
           {/* ------------------- */}
         </Box>
         <br />
 
         <Box class="dropdown">
-          <span> <Button onClick={handleOpen1}><AddBoxRoundedIcon variant="contained" /></Button>
-          {salesDataStatus ? salesDataStatus : "Sales"}</span>
+          <span>
+            {" "}
+            <Button onClick={handleOpen1}>
+              <AddBoxRoundedIcon variant="contained" />
+            </Button>
+            {salesDataStatus ? salesDataStatus : "Sales"}
+          </span>
 
           <Box class="dropdown-content">
             {salesData.length > 0 && salesData.map((el) => <p>{el}</p>)}
@@ -632,18 +678,22 @@ const ActionPlans = () => {
           {/* ------------------- */}
 
           <Box>
-         <div class="dropdown2">
-  <button class="dropbtn2">
-  <Avatar src="https://image.shutterstock.com/image-illustration/menu-three-dots-line-icon-260nw-2200198353.jpg" />
-  </button>
-  <div class="dropdown-content2">
-    <p onClick={()=> handleSalesDataEdit()}>Edit</p>
-    <p onClick={handleOpen}>Manage Access</p>
-    <p style={{color:"red"}} onClick={()=> alert("Delete Not Working")}>Delete</p>
-  </div>
-</div>
-
-         </Box>
+            <div class="dropdown2">
+              <button class="dropbtn2">
+                <Avatar src="https://image.shutterstock.com/image-illustration/menu-three-dots-line-icon-260nw-2200198353.jpg" />
+              </button>
+              <div class="dropdown-content2">
+                <p onClick={() => handleSalesDataEdit()}>Edit</p>
+                <p onClick={handleOpen}>Manage Access</p>
+                <p
+                  style={{ color: "red" }}
+                  onClick={() => alert("Delete Not Working")}
+                >
+                  Delete
+                </p>
+              </div>
+            </div>
+          </Box>
           {/* -------------------- */}
         </Box>
       </Box>
